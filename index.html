@@ -3,66 +3,37 @@
     <meta charset="utf-8" />
     <title> Title </title>
     <!-- <meta name="google-site-verification" content="xxxxxxxxxxxxx-xxxxxxxxxxxxxxxxx-xxxxxxxxxxx" /> -->
+    <script src="../js/system.min.js"></script> 
+    <script src="../js/named-register.js"></script> 
+​
+    <script src='https://api.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.css' rel=’stylesheet’ />
     
+    <!-- <script type="systemjs-module" src="../js/main_map.js"></script> -->
+    <link rel="stylesheet" href="styles.css" />
   
 </head>
-​
+  
 <body>
-    <div id="root">
-        <form method="post" enctype=    >
-            <div>
-              <label for="file">Choose file to upload</label>
-              <input type="file" id="file" name="file" multiple onchange="
-                const img = document.createElement('img');
-                img.id = 'preview';
-                img.src = window.URL.createObjectURL(document.querySelector('input').files[0]);
-                img.width = 500;
-                document.querySelector('#root').appendChild(img)
-              "/>
-            </div>
-          </form>
-​
-          <div>
-            <button onclick="
-                const img = document.querySelector('#preview');
-                fetch(img.src)
-                        .then((res) => res.blob())
-                        .then((blob) => {
-                            // Read the Blob as DataURL using the FileReader API
-                            const reader = new FileReader();
-                            reader.onloadend = () => {
-                                console.log(reader.result);
-                                const base64 = getBase64StringFromDataURL(reader.result);
-                                try {
-                                    fetch('https://server.com', {
-                                    method: 'POST',
-                                    data: {'content': base64}, 
-                                    headers: {
-                                        'Content-Type': 'application/json',
-                                        'Access-Control-Allow-Origin': '*',
-                                        'Access-Control-Allow-Methods': '*',
-                                        'Access-Control-Allow-Headers': '*'
-                                    },
-                                    mode: 'cors',
-                                        }).then(result => {
-                                            if (result.status == 200) {
-                                                result.json().then(result=>{console.log(result); return result;})
-                                
-                                            }
-                                            else {
-                                                console.log(result);
-                                                console.log(`CODE: ${result.status}`);
-                                            }
-                                            return;
-                                        });
-                                    }
-                                catch (e) {
-                                    console.log(e);
-                                    return new Promise((res) => res({ content: ['A', 'B'] }));
-                                }
-                            }});
-                       ">Submit</button>
-          </div>
-    </div>
+    <div id="map" height=500></div>
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1Ijoic3RhMDAiLCJhIjoiY2xodWhxc2s2MGZ2YTNkcWgyamFwbTNyayJ9.cqMre3Bfp8Q-Tx_8eCZ-mg';
+        var map = new mapboxgl.Map({
+            container: 'map', // HTML container id
+            style: 'mapbox://styles/mapbox/streets-v9', // style URL
+            center: [-21.9270884, 64.1436456], // starting position as [lng, lat]
+            zoom: 13
+        });
+    </script>
 </body>
 </html> 
+Collapse
+
+
+
+
+
+
+
+
+
